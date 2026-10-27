@@ -26,7 +26,10 @@ def dashboard():
     try:
         url = 'https://api.frankfurter.app/latest?from=EUR'
         response = requests.get(url, timeout=5)
-        donnees_change = response.json()
+        donnees = response.json()
+        taux_usd = donnees['rates']['USD']
     except Exception:
-        donnees_change = None
-    return render_template('dashboard.html', change=donnees_change)
+        donnees = None
+        taux_usd = None
+
+    return render_template('dashboard.html', change=donnees, usd=taux_usd)
