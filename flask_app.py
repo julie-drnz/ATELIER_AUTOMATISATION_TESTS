@@ -14,3 +14,19 @@ def consignes():
 if __name__ == "__main__":
     # utile en local uniquement
     app.run(host="0.0.0.0", port=5000, debug=True)
+
+import requests
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+
+@app.route('/dashboard')
+def dashboard():
+    try:
+        url = 'https://api.frankfurter.app/latest?from=EUR'
+        response = requests.get(url, timeout=5)
+        donnees_change = response.json()
+    except Exception:
+        donnees_change = None
+    return render_template('dashboard.html', change=donnees_change)
