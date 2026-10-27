@@ -6,16 +6,23 @@
 </head>
 <body>
 <div class="stat-card">
-    <h3>Taux de change (Base : {{ change.base if change else 'EUR' }})</h3>
+    {% if usd %}
+        <p style="font-size: 1.2em;">
+            <strong>1 EUR = {{ usd }} USD</strong>
+        </p>
+    {% endif %}
+
+    <hr>
+    <h3>Tous les taux de change (Base : {{ change.base if change else 'EUR' }})</h3>
     {% if change %}
-        <p><small>Dernière mise à jour : {{ change.date }}</small></p>
+        <p><small>Mise à jour : {{ change.date }}</small></p>
         <ul>
-            <li><strong>USD :</strong> {{ change.rates.USD }} $</li>
-            <li><strong>GBP :</strong> {{ change.rates.GBP }} £</li>
-            <li><strong>CHF :</strong> {{ change.rates.CHF }} CHF</li>
+            {% for devise, taux in change.rates.items() %}
+                <li><strong>{{ devise }} :</strong> {{ taux }}</li>
+            {% endfor %}
         </ul>
     {% else %}
-        <p>Impossible de charger les taux de change pour le moment.</p>
+        <p>Impossible de charger les taux pour le moment.</p>
     {% endif %}
 </div>
 </body>
