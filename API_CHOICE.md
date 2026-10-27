@@ -8,6 +8,6 @@
 - Endpoints testés : 
   - GET /latest?from=EUR
   - GET /latest?from=EUR&to=USD
-- Hypothèses de contrat (champs attendus, types, codes) : HTTP 200 pour une requête valide, réponses en JSON, attendus : base (texte), date (texte), rates (objet contenant des nombres)
+- Hypothèses de contrat (champs attendus, types, codes) : HTTP 200, JSON en réponse
 - Limites / rate limiting connu : limité nous même
 - Risques (instabilité, downtime, CORS, etc.) : peut être indispo ou lent
