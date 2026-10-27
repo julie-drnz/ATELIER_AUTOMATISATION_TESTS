@@ -2,22 +2,21 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>Dashboard</title>
+    <title>Dashboard en Euros</title>
 </head>
 <body>
-    <h1>Il est <span id="heure">...</span></h1>
-    <p id="message"></p>
-
-    <script>
-        // Ce code s'exécute dans le NAVIGATEUR, pas sur le serveur
-        async function mettreAJour() {
-            const reponse = await fetch("/api/heure");   // envoie une requête à l'API
-            const donnees = await reponse.json();         // lit le JSON reçu
-            document.getElementById("heure").textContent = donnees.heure;
-            document.getElementById("message").textContent = donnees.message;
-        }
-        mettreAJour();
-        setInterval(mettreAJour, 1000);  // recommence toutes les secondes
-    </script>
+<div class="stat-card">
+    <h3>Taux de change (Base : {{ change.base if change else 'EUR' }})</h3>
+    {% if change %}
+        <p><small>Dernière mise à jour : {{ change.date }}</small></p>
+        <ul>
+            <li><strong>USD :</strong> {{ change.rates.USD }} $</li>
+            <li><strong>GBP :</strong> {{ change.rates.GBP }} £</li>
+            <li><strong>CHF :</strong> {{ change.rates.CHF }} CHF</li>
+        </ul>
+    {% else %}
+        <p>Impossible de charger les taux de change pour le moment.</p>
+    {% endif %}
+</div>
 </body>
 </html>
